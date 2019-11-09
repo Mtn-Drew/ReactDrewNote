@@ -2,7 +2,6 @@ import React from 'react'
 import NoteListNav from '../NoteListNav/NoteListNav'
 import NotePageNav from '../NotePageNav/NotePageNav'
 import {Route} from 'react-router-dom'
-import {findNote, findFolder} from '../notes-helpers'
 
 class FolderList extends React.Component {
   render() {
@@ -13,26 +12,10 @@ class FolderList extends React.Component {
             exact 
             key={path}
             path={path}
-            render={routeProps => (
-              <NoteListNav
-                folders={this.props.folders}
-                notes={this.props.notes}
-                {...routeProps}
-                />
-            )}
+            component={NoteListNav}
           />
         ))}
-
-
-        <Route 
-          path="/note/:noteID"
-          render={routeProps =>{
-            const {noteId} = routeProps.match.params
-            const note = findNote(this.props.notes, noteId) || {}
-            const folder = findFolder(this.props.folders, note.folderId)
-            return <NotePageNav {...routeProps} folder={folder} />
-          }}
-          />
+        <Route path="/note/:noteId" component={NotePageNav} />
         <Route path="/add-folder" component={NotePageNav} />
         <Route path="/add-note" component={NotePageNav} />
       </div>
