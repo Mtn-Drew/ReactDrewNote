@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-// import { format } from 'date-fns'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './Note.css'
 import ApiContext from '../ApiContext'
@@ -11,6 +10,7 @@ class Note extends React.Component {
   static defaultProps ={
     onDeleteNote: () => {},
   }
+
   static contextType = ApiContext;
 
   handleClickDelete = e => {
@@ -31,7 +31,6 @@ class Note extends React.Component {
       })
       .then(() => {
         this.context.deleteNote(noteId)
-        // allow parent to perform extra behaviour
         this.props.onDeleteNote(noteId)
       })
       .catch(error => {
@@ -43,11 +42,13 @@ class Note extends React.Component {
     const { name, id, modified } = this.props
     return (
       <div className='Note'>
+
         <h2 className='Note__title'>
           <Link to={`/note/${id}`}>
             {name}
           </Link>
         </h2>
+
         <button
           className='Note__delete'
           type='button'
@@ -57,6 +58,7 @@ class Note extends React.Component {
           {' '}
           remove
         </button>
+        
         <div className='Note__dates'>
           <div className='Note__dates-modified'>
             Modified

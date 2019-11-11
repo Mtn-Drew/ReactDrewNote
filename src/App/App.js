@@ -8,11 +8,10 @@ import config from '../config'
 
 class App extends React.Component {
   
-    state = {
-      notes : [],
-      folders : []
-    }
-  
+  state = {
+    notes : [],
+    folders : []
+  }
   
   componentDidMount() {
     Promise.all([
@@ -20,20 +19,24 @@ class App extends React.Component {
       fetch(`${config.API_ENDPOINT}/folders`)
     ])
       .then(([notesResponse, foldersResponse]) => {
+        console.log('first then')
         if (!notesResponse.ok) return notesResponse.json()
         .then(e => Promise.reject(e))
         if (!foldersResponse.ok) return foldersResponse.json().then(e=>Promise.reject(e))
         return Promise.all([notesResponse.json(), foldersResponse.json()])
       })
       .then(([notes, folders]) => {
+        console.log('second then')
         this.setState({notes, folders})
       })
       .catch(error => {
+        console.log('error in catch')
         console.error({error})
       })
   }
 
   handleDeleteNote = (noteId) => {
+    console.log('handleDeleteNote called')
     this.setState = ({
       notes : this.state.notes.filter(note => note.id !== noteId)
     })

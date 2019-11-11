@@ -8,11 +8,11 @@ import NotePageMain from '../NotePageMain/NotePageMain'
       return (
         <>
         {['/', '/folder/:folderId'].map(path => (
-            <Route
-                exact
-                key={path}
-                path={path}
-                component = {NoteListMain}
+          <Route
+            exact
+            key={path}
+            path={path}
+            component = {NoteListMain}
             />
         ))}
         <Route path="/note/:noteId" component={NotePageMain} />
